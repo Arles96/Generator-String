@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>String Line json</title>
+</head>
+<body>
+  <div>
+    <!-- textarea para la que contiene multiples lineas -->
+    <textarea style="width: 90%;" placeholder="ingrese el texto" rows="6" id="multinestring"></textarea>
+  </div>
+  <br><br>
+  <div>
+    <button id="convertidor">
+      Convertir
+    </button>
+  </div>
+  <br><br>
+  <div>
+    <textarea style="width: 90%;" id="stringjson" rows="6"></textarea>
+  </div>
+  <script>
+    const button = document.getElementById('convertidor');
+    button.onclick = () => {
+      const multinestring = document.getElementById('multinestring');
+      const stringjson = document.getElementById('stringjson');
+      const valuemulti = multinestring.value;
+      const regexbreackline = /\n/g;
+      const regextabular = /\t/g;
+      const regexquotes = /"/g;
+      const regexescape = /\\"/g;
+      const valuewithoutescape = valuemulti.replace(regexescape, '\\\\"');
+      const valuewithoutbreackline = valuewithoutescape.replace(regexbreackline, '\\n');
+      const valuewithouttabular = valuewithoutbreackline.replace(regextabular, '\\t');
+      const valuewithoutquotes = valuewithouttabular.replace(regexquotes, '\\"');
+      stringjson.value = valuewithoutquotes;
+    }
+  </script>
+</body>
+</html>
